@@ -1,6 +1,15 @@
+using CRUDTest.Application;
+using CRUDTest.Infrastructure;
+using CRUDTest.Persistense;
+using CRUDTest.Presentation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.RegisterApplicationServices()
+                .RegisterInfrastructureServices()
+                .RegisterPersistenceServices(builder.Configuration)
+                .RegisterPresentationServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
