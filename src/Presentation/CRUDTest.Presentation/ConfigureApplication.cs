@@ -1,4 +1,5 @@
 ﻿using CRUDTest.Persistense;
+using CRUDTest.Presentation.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRUDTest.Presentation
@@ -7,6 +8,8 @@ namespace CRUDTest.Presentation
     {
         public static WebApplication ConfigurePresentationApplication(this WebApplication app)
         {
+            app.UseExceptionHandling();
+
             // Perform automatic migrations
             using (var serviceScope = app.ConfigurePresentationApplication().Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
