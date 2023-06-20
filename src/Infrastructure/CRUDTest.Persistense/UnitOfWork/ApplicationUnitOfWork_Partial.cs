@@ -11,5 +11,6 @@ namespace CRUDTest.Persistense.UnitOfWork
     public partial class ApplicationUnitOfWork
     {
         public DbSet<Product> Products => _context.Set<Product>();
+        public DbSet<User> Users => _context.Set<User>();
     }
 }

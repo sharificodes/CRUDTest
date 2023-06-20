@@ -1,4 +1,5 @@
 ﻿using CRUDTest.Application.Common.Models;
+using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ public static class IdentityResultExtensions
     public static Result ToApplicationResult(this IdentityResult result)
     {
         return result.Succeeded
-            ? Result.Success()
-            : Result.Failure(result.Errors.Select(e => e.Description));
+            ? Result.Ok()
+            : Result.Fail(result.Errors.Select(e => e.Description));
     }
 }

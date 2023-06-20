@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using CRUDTest.Application.Common.Exceptions;
 using CRUDTest.Application.Common.Interfaces;
 using CRUDTest.Domain.Entities;
+using FluentResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -26,11 +28,11 @@ namespace CRUDTest.Infrastructure
             _configuration = configuration;
         }
 
-        public async Task<IdentityResult> RegisterUserAsync(string userName, string password)
+        public async Task<Result> RegisterUserAsync(string userName, string password)
         {
             var user = new User { UserName = userName, PasswordHash = password };
             var result = await _userManager.CreateAsync(user, password);
-            return result;
+            return result.ToApplicationResult();
         }
 
         public async Task<bool> ValidateUserAsync(string userName, string password)
