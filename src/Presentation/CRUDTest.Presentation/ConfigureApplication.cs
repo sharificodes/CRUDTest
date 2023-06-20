@@ -11,11 +11,7 @@ namespace CRUDTest.Presentation
             app.UseExceptionHandling();
 
             // Perform automatic migrations
-            using (var serviceScope = app.ConfigurePresentationApplication().Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                context.Database.Migrate();
-            }
+            MigrateDatabase(app);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -31,6 +27,26 @@ namespace CRUDTest.Presentation
             app.Run();
 
             return app;
+        }
+
+        private static void MigrateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                try
+                {
+                    var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
+                    if (context.Database.IsSqlServer())
+                        context.Database.Migrate();
+
+                }
+                catch (Exception ex)
+                {
+                    var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while migrating database.");
+                    throw;
+                }
+            }
         }
     }
 }
