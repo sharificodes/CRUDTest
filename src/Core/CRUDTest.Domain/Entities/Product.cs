@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRUDTest.Domain.Entities
 {
-    public class Product
+    public class Product : BaseEntity
     {
         public required string Name { get; set; }
         public DateTime ProduceDate { get; set; }
