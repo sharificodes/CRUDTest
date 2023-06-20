@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CRUDTest.Domain.Entities
 {
-    public class User : IdentityUser<int>
+    public class User : IdentityUser
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
