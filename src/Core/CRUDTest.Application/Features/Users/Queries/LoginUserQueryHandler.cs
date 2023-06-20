@@ -23,7 +23,7 @@ namespace CRUDTest.Application.Features.Users.Queries
         {
             var validatedUser = await _userAuthentication.ValidateUserAsync(request.UserName, request.Password);
             if (!validatedUser)
-                return Result.Fail(new Error("user is not valid"));
+                return Result.OkIf(true, new Error("user not found... "));
 
             string token = await _userAuthentication.CreateTokenAsync();
             return Result.Ok<string>(token);

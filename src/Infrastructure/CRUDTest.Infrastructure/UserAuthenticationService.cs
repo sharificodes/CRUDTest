@@ -16,13 +16,13 @@ using System.Threading.Tasks;
 
 namespace CRUDTest.Infrastructure
 {
-    public sealed class UserAuthenticationRepository : IUserAuthenticationService
+    public sealed class UserAuthenticationService : IUserAuthenticationService
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private User? _user;
 
-        public UserAuthenticationRepository(UserManager<User> userManager, IConfiguration configuration)
+        public UserAuthenticationService(UserManager<User> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -39,6 +39,9 @@ namespace CRUDTest.Infrastructure
         {
             var user = new User { UserName = userName, PasswordHash = password };
             _user = await _userManager.FindByNameAsync(user.UserName);
+            if (_user == null)
+                return false;
+
             var result = _user != null && await _userManager.CheckPasswordAsync(_user, password);
             return result;
         }

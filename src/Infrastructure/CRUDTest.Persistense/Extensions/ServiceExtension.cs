@@ -19,7 +19,7 @@ public static class ServiceExtension
             o.Password.RequireLowercase = false;
             o.Password.RequireUppercase = false;
             o.Password.RequireNonAlphanumeric = false;
-            o.User.RequireUniqueEmail = true;
+            o.User.RequireUniqueEmail = false;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();

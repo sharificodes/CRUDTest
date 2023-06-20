@@ -24,6 +24,5 @@ namespace CRUDTest.Application.Common.Interfaces
     public interface IApplicationUnitOfWork : IUnitOfWork
     {
         public DbSet<Product> Products { get; }
-        public DbSet<User> Users { get; }
     }
 }

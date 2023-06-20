@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CRUDTest.Application.Common.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace CRUDTest.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services)
         {
-           
+            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+
             return services;
         }
     }

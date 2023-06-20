@@ -32,11 +32,11 @@ namespace CRUDTest.Presentation
 
         private static void MigrateDatabase(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 try
                 {
-                    var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
+                    var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                     if (context.Database.IsSqlServer())
                         context.Database.Migrate();
 

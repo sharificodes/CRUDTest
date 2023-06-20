@@ -2,6 +2,7 @@ using CRUDTest.Application;
 using CRUDTest.Infrastructure;
 using CRUDTest.Persistense;
 using CRUDTest.Presentation;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

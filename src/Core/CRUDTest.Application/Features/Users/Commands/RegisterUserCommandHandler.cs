@@ -14,7 +14,7 @@ namespace CRUDTest.Application.Features.Users.Commands
 
         public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userAuthentication.RegisterUserAsync(request.UserName, request.Password) ;
+            var result = await _userAuthentication.RegisterUserAsync(request.UserName, request.Password);
             return result;
         }
     }
