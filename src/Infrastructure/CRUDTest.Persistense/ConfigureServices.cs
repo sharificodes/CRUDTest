@@ -1,4 +1,5 @@
 ﻿using CRUDTest.Application.Common.Interfaces;
+using CRUDTest.Persistense.Extensions;
 using CRUDTest.Persistense.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,9 +20,14 @@ public static class ConfigureServices
              options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContext"),
                  builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
+        services.AddAuthentication();
+        services.ConfigureIdentity();
+        services.ConfigureJWT(configuration);
+
         services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
 
         return services;
     }
+
 
 }
