@@ -16,7 +16,7 @@ public class MappingProfile : Profile
         var mapFromAndToType = typeof(IMapFromAndTo<>);
         var mapToType = typeof(IMapTo<>);
 
-        var mappingMethodName = nameof(IMapFrom<object>.Mapping);
+        var mappingMethodName = nameof(IHaveCustomMappings.CreateMappings);
 
         bool HasInterface(Type t) => t.IsGenericType && (t.GetGenericTypeDefinition() == mapFromType
             || t.GetGenericTypeDefinition() == mapFromAndToType

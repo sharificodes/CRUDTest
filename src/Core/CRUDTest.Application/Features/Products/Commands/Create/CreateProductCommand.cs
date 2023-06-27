@@ -1,7 +1,9 @@
-﻿using CRUDTest.Application.Common.Mappings;
+﻿using AutoMapper;
+using CRUDTest.Application.Common.Mappings;
 using CRUDTest.Domain.Entities;
 using FluentResults;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

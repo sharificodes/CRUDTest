@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace CRUDTest.Application.Common.Mappings
 {
     public interface IHaveCustomMappings
     {
-        void CreateMappings(IConfiguration configuration);
+        void CreateMappings(IProfileExpression configuration);
     }
 }
