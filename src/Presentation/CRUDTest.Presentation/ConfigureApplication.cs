@@ -1,31 +1,20 @@
 ﻿using CRUDTest.Persistense;
 using CRUDTest.Presentation.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace CRUDTest.Presentation
 {
     public static class ConfigureApplication
     {
-        public static WebApplication ConfigurePresentationApplication(this WebApplication app)
+        public static IApplicationBuilder ConfigurePresentationApplication(this IApplicationBuilder app, IHostEnvironment env)
         {
             app.UseExceptionHandling();
-
-            // Perform automatic migrations
-            MigrateDatabase(app);
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
+            if (env.IsDevelopment())
+                UseCustomSwagger(app);
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.MapControllers();
-
-            app.Run();
+            MigrateDatabase(app);
 
             return app;
         }
@@ -48,6 +37,20 @@ namespace CRUDTest.Presentation
                     throw;
                 }
             }
+        }
+
+        public static void UseCustomSwagger(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/MyOpenAPI/swagger.json", "CRUD API");
+                setupAction.DefaultModelExpandDepth(2);
+                setupAction.DefaultModelRendering(ModelRendering.Model);
+                setupAction.DocExpansion(DocExpansion.None);
+                setupAction.EnableDeepLinking();
+                setupAction.DisplayOperationId();
+            });
         }
     }
 }

@@ -8,6 +8,7 @@ namespace CRUDTest.Domain.Entities
 {
     public abstract class BaseEntity
     {
-        public int CreatedUser { get; set; }
+        public Int64 Id { get; set; }
+        public Guid CreatedUser { get; set; }
     }
 }

@@ -15,6 +15,10 @@ namespace CRUDTest.Persistense.Configuration
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.Property(u => u.Id)
+                .ValueGeneratedOnAdd()
+                .IsRequired();
+
             builder.Property(u => u.Name)
                 .HasMaxLength(50)
                 .IsRequired();
@@ -27,8 +31,9 @@ namespace CRUDTest.Persistense.Configuration
             .HasMaxLength(50)
             .IsRequired();
 
-            builder.HasNoKey();
-            builder.HasIndex(u => new { u.ManufacturePhone, u.ManufactureEmail });
+            builder.HasKey(u => u.Id);
+            builder.HasIndex(u => new { u.ProduceDate, u.ManufactureEmail });
+            builder.ToTable("Products");
 
         }
     }

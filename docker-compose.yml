@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  crudtest.presentation:
+    image: ${DOCKER_REGISTRY-}crudtestpresentation
+    build:
+      context: .
+      dockerfile: src/Presentation/CRUDTest.Presentation/Dockerfile

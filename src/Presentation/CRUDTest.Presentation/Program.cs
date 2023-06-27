@@ -5,12 +5,12 @@ using CRUDTest.Presentation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.RegisterApplicationServices()
                 .RegisterInfrastructureServices()
                 .RegisterPersistenceServices(builder.Configuration)
-                .RegisterPresentationServices();
+                .RegisterPresentationServices(builder.Logging, builder.Environment, builder.Configuration);
 
 var app = builder.Build();
-
-app.ConfigurePresentationApplication();
+app.ConfigurePresentationApplication(app.Environment);
+app.MapControllers();
+app.Run();

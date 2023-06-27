@@ -41,7 +41,7 @@ public class ExceptionHandlingMiddleware
                 errors = new[] { restException.Message };
         }
         else
-            errors = "An error has occurred.";
+            errors =exception.Message;
 
         _logger.LogError($"{errors} - {exception.Message} - {exception.StackTrace}");
 

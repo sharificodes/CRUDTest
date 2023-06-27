@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -27,15 +28,28 @@ public static class ServiceExtension
 
     public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(CustomRoles.Admin,
+                              policy => policy.RequireRole(CustomRoles.Admin));
+            options.AddPolicy(CustomRoles.User,
+                              policy => policy.RequireRole(CustomRoles.User));
+            options.AddPolicy(CustomRoles.Editor,
+                              policy => policy.RequireRole(CustomRoles.Editor));
+        });
+
         var jwtConfig = configuration.GetSection("jwtConfig");
         var secretKey = jwtConfig["secret"];
         services.AddAuthentication(opt =>
         {
-            opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         })
         .AddJwtBearer(options =>
         {
+            options.SaveToken = true;
+            options.RequireHttpsMetadata = false;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,

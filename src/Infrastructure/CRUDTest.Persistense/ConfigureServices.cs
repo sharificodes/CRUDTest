@@ -1,9 +1,11 @@
 ﻿using CRUDTest.Application.Common.Interfaces;
 using CRUDTest.Persistense.Extensions;
 using CRUDTest.Persistense.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,6 @@ public static class ConfigureServices
              options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContext"),
                  builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
-        services.AddAuthentication();
         services.ConfigureIdentity();
         services.ConfigureJWT(configuration);
 
@@ -28,6 +29,4 @@ public static class ConfigureServices
 
         return services;
     }
-
-
 }

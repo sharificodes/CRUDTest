@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CRUDTest.Presentation.Controllers;
 
-[Route("[controller]/[action]"), ApiController]
+[Route("api/[controller]/[action]"), ApiController]
 public abstract class BaseController : ControllerBase
 {
     private ISender? _mediator;

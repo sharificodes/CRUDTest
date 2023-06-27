@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -66,7 +67,8 @@ namespace CRUDTest.Infrastructure
         {
             var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, _user.UserName)
+            new(ClaimTypes.Name, _user.UserName.ToString()),
+            new(ClaimTypes.UserData, _user.Id.ToString(CultureInfo.InvariantCulture))
         };
             var roles = await _userManager.GetRolesAsync(_user);
             foreach (var role in roles)

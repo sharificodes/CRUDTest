@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Reflection;
 
 namespace CRUDTest.Application.Common.Mappings;
 
