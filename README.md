@@ -194,8 +194,3 @@ curl -X POST "http://localhost:5000/Product" -H "Authorization: Bearer {token}" 
 ```
 
 ---
-
-## مشاهده بیشتر
-
-لیست فایل‌ها و کنترلرهای بیشتر:  
-[مشاهده در گیت‌هاب](https://github.com/sharificodes/CRUDTest/tree/master/src/Presentation/CRUDTest.Presentation/Controllers)
